@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import smdecommerce.administrador.modelo.AdministradorDAO;
-import smdecommerce.administrador.modelo.Administrador;
 import smdecommerce.usuario.modelo.Usuario;
 import smdecommerce.usuario.modelo.UsuarioDAO;
 
@@ -37,14 +36,14 @@ public class NovoAdmServlet extends HttpServlet {
         
         boolean sucesso = false;
         String mensagem = null;
-        Usuario usuario = new Usuario();
-        Administrador adm = null;
+        Usuario usuario = null;
+  
         try {
             usuarioDAO.inserir(nome, email, login, senha);
             usuario = usuarioDAO.obter(login);
             admDAO.inserir(usuario.getId());
             sucesso = true;
-            mensagem = "Usuário inserido com sucesso";
+            mensagem = "Administrador inserido com sucesso";
             response.setStatus(200);
         } catch (Exception ex) {
             response.setStatus(400);
@@ -56,7 +55,7 @@ public class NovoAdmServlet extends HttpServlet {
             Gson gson = new Gson();
             myResponse.put("sucesso", sucesso);
             myResponse.put("data", gson.toJson(usuario));
-            myResponse.put("mensagem", sucesso ? "Usuário criado com sucesso" : mensagem);
+            myResponse.put("mensagem", sucesso ? "Administrador criado com sucesso" : mensagem);
             out.print(myResponse);
             out.flush();
         }

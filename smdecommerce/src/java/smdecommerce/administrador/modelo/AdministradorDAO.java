@@ -33,7 +33,7 @@ public class AdministradorDAO {
         resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             adm = new Administrador();
-            adm.setId(resultSet.getInt("id"));
+            adm.setId(resultSet.getInt("id_usuario"));
         }
         resultSet.close();
         preparedStatement.close();
@@ -50,14 +50,14 @@ public class AdministradorDAO {
      * @param id_usuario
      * @throws Exception
      */
-    public void inserir(String id_usuario) throws Exception {
+    public void inserir(Integer id_usuario) throws Exception {
         Class.forName("org.postgresql.Driver");
         Connection connection;
         connection = DriverManager.getConnection("jdbc:postgresql://" + ServerConf.URL +":" +
                 ServerConf.PORT + "/" + ServerConf.DATABASE, ServerConf.USER, ServerConf.PASS);     
         PreparedStatement preparedStatement;
         preparedStatement = connection.prepareStatement("INSERT INTO administrador (id_usuario) VALUES (?)");
-        preparedStatement.setString(1, id_usuario);
+        preparedStatement.setInt(1, id_usuario);
         int resultado = preparedStatement.executeUpdate();
         preparedStatement.close();
         connection.close();
