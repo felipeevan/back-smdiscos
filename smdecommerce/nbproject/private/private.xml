@@ -5,7 +5,7 @@
         <group>
             <file>file:/C:/Users/vitor/Downloads/smdecommerce/src/java/smdecommerce/usuario/controle/LoginServlet.java</file>
             <file>file:/C:/Users/vitor/Downloads/smdecommerce/src/java/smdecommerce/usuario/controle/LogoutServlet.java</file>
-            <file>file:/C:/Users/vitor/Downloads/smdecommerce/src/java/smdecommerce/administrador/controle/NovoAdmServlet.java</file>
+            <file>file:/C:/Users/vitor/Downloads/smdecommerce/src/java/smdecommerce/administrador/modelo/AdministradorDAO.java</file>
             <file>file:/C:/Users/vitor/Downloads/smdecommerce/src/java/smdecommerce/usuario/controle/NovoUsuarioServlet.java</file>
         </group>
     </open-files>

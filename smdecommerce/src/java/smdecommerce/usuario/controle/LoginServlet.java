@@ -46,25 +46,33 @@ public class LoginServlet extends HttpServlet {
                 } else {
                     session.setAttribute("administrador", usuario);
                   }
+                response.setStatus(200);
             } else {
+                response.setStatus(400);
                 sucesso = false;
                 mensagem = "Login ou senha inválida";
             }
         } catch (Exception ex) {
+            response.setStatus(500);
             sucesso = false;
             mensagem = ex.getMessage();
         }
          try (PrintWriter out = response.getWriter()) {
-            out.print("{");
+            JSONObject myResponse = new JSONObject();
+            Gson gson = new Gson();
             if (administrador != null){
-            out.print("\"sessao\": Administrador, ");
+                myResponse.put("tipoSessao", 1);
             } else {
-            out.print("\"sessao\": Cliente, ");
+                myResponse.put("tipoSessao", 2);
             }
-            out.print("\"sucesso\": " + sucesso + ", ");
-            out.print("\"mensagem\": \"" + (sucesso ? "Usuário logado com sucesso" : mensagem) + "\"");
-            out.print("}");
+            myResponse.put("sucesso", sucesso);
+            myResponse.put("data", gson.toJson(usuario));
+            myResponse.put("mensagem", sucesso ? "Usuário logado com sucesso" : mensagem);
+            out.print(myResponse);
+            out.flush();
         }
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
     }
 }
 
