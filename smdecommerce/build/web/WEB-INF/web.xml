@@ -32,13 +32,25 @@
         <servlet-name>ExcluirClienteServlet</servlet-name>
         <servlet-class>smdecommerce.cliente.controle.ExcluirClienteServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NovaCategoriaServlet</servlet-name>
+        <servlet-class>smdecommerce.categoria.controle.NovaCategoriaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExcluirCategoriaServlet</servlet-name>
+        <servlet-class>smdecommerce.categoria.controle.ExcluirCategoriaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AtualizarCategoriaServlet</servlet-name>
+        <servlet-class>smdecommerce.categoria.controle.AtualizarCategoriaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>NovoClienteServlet</servlet-name>
         <url-pattern>/NovoCliente</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/Login</url-pattern>
+        <url-pattern>/LoginCliente</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
@@ -63,6 +75,18 @@
     <servlet-mapping>
         <servlet-name>ExcluirClienteServlet</servlet-name>
         <url-pattern>/ExcluirCliente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NovaCategoriaServlet</servlet-name>
+        <url-pattern>/NovaCategoria</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExcluirCategoriaServlet</servlet-name>
+        <url-pattern>/ExcluirCategoria</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AtualizarCategoriaServlet</servlet-name>
+        <url-pattern>/AtualizarCategoria</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

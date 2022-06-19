@@ -44,7 +44,38 @@ public class CategoriaDAO {
         return categoria;
     }
 
-   
+    /**
+     * Método utilizado para obter uma categoria pelo seu identificador
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public Categoria obterPorDesc(String descricao) throws Exception {
+        Categoria categoria = null;
+        Class.forName("org.postgresql.Driver");
+        Connection connection;
+        connection = DriverManager.getConnection("jdbc:postgresql://" + ServerConf.URL +":" +
+                ServerConf.PORT + "/" + ServerConf.DATABASE, ServerConf.USER, ServerConf.PASS);     
+        PreparedStatement preparedStatement;
+        preparedStatement = connection.prepareStatement("SELECT id, descricao FROM categoria WHERE descricao = ?");
+        preparedStatement.setString(1, descricao);
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            categoria = new Categoria();
+            categoria.setId(resultSet.getInt("id"));
+            categoria.setDescricao(resultSet.getString("descricao"));
+        }
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+        if (categoria == null) {
+            throw new Exception("Categoria não encontrada");
+        }
+        return categoria;
+    }
+    
     /**
      * Método utilizado para inserir uma nova categoria
      *

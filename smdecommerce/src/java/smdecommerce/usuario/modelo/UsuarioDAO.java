@@ -128,7 +128,7 @@ public class UsuarioDAO {
         PreparedStatement preparedStatement;
         preparedStatement = connection.prepareStatement("UPDATE usuario SET nome=?, email=?, login=?, senha=? WHERE id = ?");
         preparedStatement.setString(1, nome);
-        preparedStatement.setString(2, email);
+        preparedStatement.setString(3, email);
         preparedStatement.setString(3, login);
         preparedStatement.setString(4, senha);
         preparedStatement.setInt(5, id);
