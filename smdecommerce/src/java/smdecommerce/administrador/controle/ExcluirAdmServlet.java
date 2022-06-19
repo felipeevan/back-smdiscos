@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
-import smdecommerce.administrador.modelo.AdministradorDAO;
 import smdecommerce.usuario.modelo.Usuario;
 import smdecommerce.usuario.modelo.UsuarioDAO;
 
@@ -32,13 +31,11 @@ public class ExcluirAdmServlet extends HttpServlet {
        
         /* processamento */
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        AdministradorDAO admDAO = new AdministradorDAO();
         boolean sucesso = false;
         String mensagem = null;
   
         try {
             usuarioDAO.excluir(usuario.getId());
-            admDAO.excluir(usuario.getId());
             sucesso = true;
             mensagem = "Administrador excluído com sucesso";
             session.invalidate();

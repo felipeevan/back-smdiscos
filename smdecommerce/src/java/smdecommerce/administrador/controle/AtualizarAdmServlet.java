@@ -38,7 +38,6 @@ public class AtualizarAdmServlet extends HttpServlet {
         String mensagem = null;
         if(usuario != null) {
             try {
-
                 usuarioDAO.atualizar(usuario.getId(), nome, email, login, senha);
                 sucesso = true;
                 session.removeAttribute("administrador");
