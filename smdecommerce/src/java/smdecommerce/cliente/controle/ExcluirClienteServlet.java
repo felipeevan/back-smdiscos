@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
+import smdecommerce.cliente.modelo.ClienteDAO;
 import smdecommerce.usuario.modelo.Usuario;
 import smdecommerce.usuario.modelo.UsuarioDAO;
 
@@ -31,11 +32,13 @@ public class ExcluirClienteServlet extends HttpServlet {
        
         /* processamento */
         UsuarioDAO usuarioDAO = new UsuarioDAO();
+        ClienteDAO clienteDAO = new ClienteDAO();
         boolean sucesso = false;
         String mensagem = null;
   
         try {
             usuarioDAO.excluir(usuario.getId());
+            clienteDAO.excluir(usuario.getId());
             sucesso = true;
             mensagem = "Usuário excluído com sucesso";
             session.invalidate();
