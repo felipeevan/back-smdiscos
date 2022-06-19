@@ -1,23 +1,24 @@
-package smdecommerce.categoria.controle;
+package smdecommerce.produto.controle;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
-import smdecommerce.categoria.modelo.Categoria;
-import smdecommerce.categoria.modelo.CategoriaDAO;
+import smdecommerce.produto.modelo.Produto;
+import smdecommerce.produto.modelo.ProdutoDAO;
 
 /**
  *
  * @author nicol
  */
-public class ExcluirCategoriaServlet extends HttpServlet {
+@WebServlet(name = "AtualizarProdutoServlet", urlPatterns = {"/AtualizarProduto"})
+public class AtualizarProdutoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -25,17 +26,24 @@ public class ExcluirCategoriaServlet extends HttpServlet {
         JsonObject data = new Gson().fromJson(request.getReader(), JsonObject.class);
         
         /* Entrada */
-        int id = data.get("id").getAsInt();
+        int id           = data.get("id").getAsInt();
+        String nome      = data.get("nome").getAsString();
+        String autor     = data.get("autor").getAsString();
+        String descricao = data.get("descricao").getAsString();
+        double preco     = data.get("preco").getAsDouble();
+        int quantidade   = data.get("quantidade").getAsInt();
+        String foto      = data.get("foto").getAsString();
         
         /* Processamento */
-        CategoriaDAO categoriaDAO = new CategoriaDAO();
+        ProdutoDAO produtoDAO = new ProdutoDAO();
         
-        boolean sucesso     = false;
-        String mensagem     = null;
-        Categoria categoria = null;
+        boolean sucesso = false;
+        String mensagem = null;
+        Produto produto = null;
         
         try{
-            categoriaDAO.excluir(id);
+            produtoDAO.atualizar(id,nome,autor,descricao,preco,quantidade,foto);
+            produto = produtoDAO.obter(id);
             response.setStatus(200);
             sucesso = true;
             
@@ -50,13 +58,12 @@ public class ExcluirCategoriaServlet extends HttpServlet {
             JSONObject myResponse = new JSONObject();
             Gson gson = new Gson();
             myResponse.put("sucesso", sucesso);
-            myResponse.put("data", gson.toJson(categoria));
-            myResponse.put("mensagem", sucesso ? "Categoria excluída com sucesso" : mensagem);
+            myResponse.put("data", gson.toJson(produto));
+            myResponse.put("mensagem", sucesso ? "Produto atualizado com sucesso" : mensagem);
             out.print(myResponse);
             out.flush();
         }
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
     }
-
 }

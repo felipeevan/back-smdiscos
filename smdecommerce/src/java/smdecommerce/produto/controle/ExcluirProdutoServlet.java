@@ -1,23 +1,23 @@
-package smdecommerce.categoria.controle;
+package smdecommerce.produto.controle;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
-import smdecommerce.categoria.modelo.Categoria;
-import smdecommerce.categoria.modelo.CategoriaDAO;
+import smdecommerce.produto.modelo.Produto;
+import smdecommerce.produto.modelo.ProdutoDAO;
 
 /**
  *
  * @author nicol
  */
-public class ExcluirCategoriaServlet extends HttpServlet {
+public class ExcluirProdutoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -28,14 +28,14 @@ public class ExcluirCategoriaServlet extends HttpServlet {
         int id = data.get("id").getAsInt();
         
         /* Processamento */
-        CategoriaDAO categoriaDAO = new CategoriaDAO();
+        ProdutoDAO produtoDAO = new ProdutoDAO();
         
         boolean sucesso     = false;
         String mensagem     = null;
-        Categoria categoria = null;
+        Produto produto = null;
         
         try{
-            categoriaDAO.excluir(id);
+            produtoDAO.excluir(id);
             response.setStatus(200);
             sucesso = true;
             
@@ -50,13 +50,12 @@ public class ExcluirCategoriaServlet extends HttpServlet {
             JSONObject myResponse = new JSONObject();
             Gson gson = new Gson();
             myResponse.put("sucesso", sucesso);
-            myResponse.put("data", gson.toJson(categoria));
-            myResponse.put("mensagem", sucesso ? "Categoria excluída com sucesso" : mensagem);
+            myResponse.put("data", gson.toJson(produto));
+            myResponse.put("mensagem", sucesso ? "Produto excluído com sucesso" : mensagem);
             out.print(myResponse);
             out.flush();
         }
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
     }
-
 }
