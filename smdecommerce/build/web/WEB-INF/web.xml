@@ -5,24 +5,64 @@
         <servlet-class>smdecommerce.cliente.controle.NovoClienteServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LoginClienteServlet</servlet-name>
+        <servlet-name>LoginServlet</servlet-name>
         <servlet-class>smdecommerce.usuario.controle.LoginServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>smdecommerce.usuario.controle.LogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NovoAdmServlet</servlet-name>
+        <servlet-class>smdecommerce.administrador.controle.NovoAdmServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AtualizarAdmServlet</servlet-name>
+        <servlet-class>smdecommerce.administrador.controle.AtualizarAdmServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExcluirAdmServlet</servlet-name>
+        <servlet-class>smdecommerce.administrador.controle.ExcluirAdmServlet</servlet-class>
+    </servlet>
+     <servlet>
+        <servlet-name>AtualizarClienteServlet</servlet-name>
+        <servlet-class>smdecommerce.cliente.controle.AtualizarClienteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExcluirClienteServlet</servlet-name>
+        <servlet-class>smdecommerce.cliente.controle.ExcluirClienteServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>NovoClienteServlet</servlet-name>
         <url-pattern>/NovoCliente</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LoginClienteServlet</servlet-name>
+        <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginCliente</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NovoAdmServlet</servlet-name>
+        <url-pattern>/NovoAdm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AtualizarAdmServlet</servlet-name>
+        <url-pattern>/AtualizarAdm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExcluirAdmServlet</servlet-name>
+        <url-pattern>/ExcluirAdm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AtualizarClienteServlet</servlet-name>
+        <url-pattern>/AtualizarCliente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExcluirClienteServlet</servlet-name>
+        <url-pattern>/ExcluirCliente</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

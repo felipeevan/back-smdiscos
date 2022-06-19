@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import smdecommerce.administrador.modelo.AdministradorDAO;
 import smdecommerce.usuario.modelo.Usuario;
@@ -26,6 +27,8 @@ public class NovoAdmServlet extends HttpServlet {
             throws ServletException, IOException {
         JsonObject data = new Gson().fromJson(request.getReader(), JsonObject.class);
         /* entrada */
+        HttpSession session = request.getSession(false);
+        Usuario adm = (Usuario) session.getAttribute("administrador");
         String nome = data.get("nome").getAsString();
         String email = data.get("email").getAsString();
         String login = data.get("login").getAsString();
@@ -37,18 +40,21 @@ public class NovoAdmServlet extends HttpServlet {
         boolean sucesso = false;
         String mensagem = null;
         Usuario usuario = null;
-  
-        try {
-            usuarioDAO.inserir(nome, email, login, senha);
-            usuario = usuarioDAO.obter(login);
-            admDAO.inserir(usuario.getId());
-            sucesso = true;
-            mensagem = "Administrador inserido com sucesso";
-            response.setStatus(200);
-        } catch (Exception ex) {
-            response.setStatus(400);
-            sucesso = false;
-            mensagem = ex.getMessage(); 
+        
+        if (adm != null){
+            try {
+                usuarioDAO.inserir(nome, email, login, senha);
+                usuario = usuarioDAO.obter(login);
+                admDAO.inserir(usuario.getId());
+                sucesso = true;
+                mensagem = "Administrador inserido com sucesso";
+                response.setStatus(200);
+            }
+            catch (Exception ex) {
+                response.setStatus(400);
+                sucesso = false;
+                mensagem = ex.getMessage(); 
+            }
         }
         try (PrintWriter out = response.getWriter()) {
             JSONObject myResponse = new JSONObject();

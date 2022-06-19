@@ -36,21 +36,22 @@ public class AtualizarAdmServlet extends HttpServlet {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         boolean sucesso = false;
         String mensagem = null;
-  
-        try {
-            if(usuario != null) {
-            usuarioDAO.atualizar(usuario.getId(), nome, email, login, senha);
-            sucesso = true;
-            session.removeAttribute("administrador");
-            usuario = usuarioDAO.obter(usuario.getId());
-            session.setAttribute("administrador", usuario);
-            mensagem = "Administrador atualizado com sucesso";
-            response.setStatus(200);
+        if(usuario != null) {
+            try {
+
+                usuarioDAO.atualizar(usuario.getId(), nome, email, login, senha);
+                sucesso = true;
+                session.removeAttribute("administrador");
+                usuario = usuarioDAO.obter(usuario.getId());
+                session.setAttribute("administrador", usuario);
+                mensagem = "Administrador atualizado com sucesso";
+                response.setStatus(200);
+                }
+            catch (Exception ex) {
+                response.setStatus(400);
+                sucesso = false;
+                mensagem = ex.getMessage(); 
             }
-        } catch (Exception ex) {
-            response.setStatus(400);
-            sucesso = false;
-            mensagem = ex.getMessage(); 
         }
         try (PrintWriter out = response.getWriter()) {
             JSONObject myResponse = new JSONObject();
