@@ -52,6 +52,44 @@ public class ProdutoDAO {
         return produto;
     }
 
+    /**
+     * Método utilizado para obter um produto pelo seu identificador
+     *
+     * @param nome
+     * @param autor
+     * @return
+     * @throws Exception
+     */
+    public Produto obterProdutoPorNome(String nome) throws Exception {
+        Produto produto = null;
+        Class.forName("org.postgresql.Driver");
+        Connection connection;
+        connection = DriverManager.getConnection("jdbc:postgresql://" + ServerConf.URL +":" +
+                ServerConf.PORT + "/" + ServerConf.DATABASE, ServerConf.USER, ServerConf.PASS);     
+        PreparedStatement preparedStatement;
+        preparedStatement = connection.prepareStatement("SELECT id, nome, autor, descricao, preco, quantidade, foto FROM produto WHERE nome = ?");
+        preparedStatement.setString(1, nome);
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            produto = new Produto();
+            produto.setId(resultSet.getInt("id"));
+            produto.setNome(resultSet.getString("nome"));
+            produto.setAutor(resultSet.getString("autor"));
+            produto.setDescricao(resultSet.getString("descricao"));
+            produto.setPreco(resultSet.getDouble("preco"));
+            produto.setQuantidade(resultSet.getInt("quantidade"));
+            produto.setFoto(resultSet.getString("foto"));
+            
+        }
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+        if (produto == null) {
+            throw new Exception("Produto não encontrado");
+        }
+        return produto;
+    }
 
     /**
      * Método utilizado para inserir um novo produto
@@ -143,7 +181,7 @@ public class ProdutoDAO {
         }
     }
     
-       /**
+     /**
      * Método utilizado para obter uma lista de produtos disponíveis em estoque
      *
      * @return
@@ -156,12 +194,50 @@ public class ProdutoDAO {
         connection = DriverManager.getConnection("jdbc:postgresql://" + ServerConf.URL +":" +
                 ServerConf.PORT + "/" + ServerConf.DATABASE, ServerConf.USER, ServerConf.PASS);     
         PreparedStatement preparedStatement;
-        preparedStatement = connection.prepareStatement("SELECT id, descricao, quantidade, preco, foto FROM produto WHERE quantidade > 0");
+        preparedStatement = connection.prepareStatement("SELECT id, nome, autor, descricao, quantidade, preco, foto FROM produto WHERE quantidade > 0");
         ResultSet resultSet;
         resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             Produto produto = new Produto();
             produto.setId(resultSet.getInt("id"));
+            produto.setNome(resultSet.getString("nome"));
+            produto.setAutor(resultSet.getString("autor"));
+            produto.setDescricao(resultSet.getString("descricao"));
+            produto.setQuantidade(resultSet.getInt("quantidade"));
+            produto.setPreco(resultSet.getDouble("preco"));
+            produto.setFoto(resultSet.getString("foto"));
+            if (resultSet.wasNull()) {
+                produto.setFoto(null);
+            }
+            produtos.add(produto);
+        }
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+        return produtos;
+    }
+    
+     /**
+     * Método utilizado para obter uma lista de produtos
+     *
+     * @return
+     * @throws Exception
+     */
+    public List<Produto> obterProdutos() throws Exception {
+        List<Produto> produtos = new ArrayList<>();
+        Class.forName("org.postgresql.Driver");
+        Connection connection;
+        connection = DriverManager.getConnection("jdbc:postgresql://" + ServerConf.URL +":" +
+                ServerConf.PORT + "/" + ServerConf.DATABASE, ServerConf.USER, ServerConf.PASS);     
+        PreparedStatement preparedStatement;
+        preparedStatement = connection.prepareStatement("SELECT id, nome, autor, descricao, quantidade, preco, foto FROM produto");
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            Produto produto = new Produto();
+            produto.setId(resultSet.getInt("id"));
+            produto.setNome(resultSet.getString("nome"));
+            produto.setAutor(resultSet.getString("autor"));
             produto.setDescricao(resultSet.getString("descricao"));
             produto.setQuantidade(resultSet.getInt("quantidade"));
             produto.setPreco(resultSet.getDouble("preco"));
