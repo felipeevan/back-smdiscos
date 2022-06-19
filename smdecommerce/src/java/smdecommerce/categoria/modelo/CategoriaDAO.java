@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import smdecommerce.ServerConf;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -47,7 +49,7 @@ public class CategoriaDAO {
     /**
      * Método utilizado para obter uma categoria pelo seu identificador
      *
-     * @param id
+     * @param descricao
      * @return
      * @throws Exception
      */
@@ -74,6 +76,34 @@ public class CategoriaDAO {
             throw new Exception("Categoria não encontrada");
         }
         return categoria;
+    }
+    
+    /**
+     * Método utilizado para obter uma lista de todas as categorias
+     *
+     * @return
+     * @throws Exception
+     */
+    public List<Categoria> obterCategorias() throws Exception {
+        List<Categoria> categorias = new ArrayList<>();
+        Class.forName("org.postgresql.Driver");
+        Connection connection;
+        connection = DriverManager.getConnection("jdbc:postgresql://" + ServerConf.URL +":" +
+                ServerConf.PORT + "/" + ServerConf.DATABASE, ServerConf.USER, ServerConf.PASS);
+        PreparedStatement preparedStatement;
+        preparedStatement = connection.prepareStatement("SELECT id, descricao FROM categoria");
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            Categoria categoria = new Categoria();
+            categoria.setId(resultSet.getInt("id"));
+            categoria.setDescricao(resultSet.getString("descricao"));
+            categorias.add(categoria);
+        }
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+        return categorias;
     }
     
     /**
