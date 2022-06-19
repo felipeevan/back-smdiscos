@@ -51,7 +51,7 @@ public class ExcluirCategoriaServlet extends HttpServlet {
             Gson gson = new Gson();
             myResponse.put("sucesso", sucesso);
             myResponse.put("data", gson.toJson(categoria));
-            myResponse.put("mensagem", sucesso ? "Categoria atualizada com sucesso" : mensagem);
+            myResponse.put("mensagem", sucesso ? "Categoria excluída com sucesso" : mensagem);
             out.print(myResponse);
             out.flush();
         }
