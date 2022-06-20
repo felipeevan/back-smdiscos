@@ -37,8 +37,8 @@ public class ExcluirClienteServlet extends HttpServlet {
         String mensagem = null;
   
         try {
-            usuarioDAO.excluir(usuario.getId());
             clienteDAO.excluir(usuario.getId());
+            usuarioDAO.excluir(usuario.getId());
             sucesso = true;
             mensagem = "Usuário excluído com sucesso";
             session.invalidate();

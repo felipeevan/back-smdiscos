@@ -44,13 +44,37 @@
         <servlet-name>AtualizarCategoriaServlet</servlet-name>
         <servlet-class>smdecommerce.categoria.controle.AtualizarCategoriaServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListarCategoriaServlet</servlet-name>
+        <servlet-class>smdecommerce.categoria.controle.ListarCategoriaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NovoProdutoServlet</servlet-name>
+        <servlet-class>smdecommerce.produto.controle.NovoProdutoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AtualizarProdutoServlet</servlet-name>
+        <servlet-class>smdecommerce.produto.controle.AtualizarProdutoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExcluirProdutoServlet</servlet-name>
+        <servlet-class>smdecommerce.produto.controle.ExcluirProdutoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListarProdutosServlet</servlet-name>
+        <servlet-class>smdecommerce.produto.controle.ListarProdutosServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListarProdutosEmEstoqueServlet</servlet-name>
+        <servlet-class>smdecommerce.produto.controle.ListarProdutosEmEstoqueServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>NovoClienteServlet</servlet-name>
         <url-pattern>/NovoCliente</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/LoginCliente</url-pattern>
+        <url-pattern>/Login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
@@ -87,6 +111,30 @@
     <servlet-mapping>
         <servlet-name>AtualizarCategoriaServlet</servlet-name>
         <url-pattern>/AtualizarCategoria</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListarCategoriaServlet</servlet-name>
+        <url-pattern>/ListarCategoria</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NovoProdutoServlet</servlet-name>
+        <url-pattern>/NovoProduto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AtualizarProdutoServlet</servlet-name>
+        <url-pattern>/AtualizarProduto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExcluirProdutoServlet</servlet-name>
+        <url-pattern>/ExcluirProduto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListarProdutosServlet</servlet-name>
+        <url-pattern>/ListarProdutos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListarProdutosEmEstoqueServlet</servlet-name>
+        <url-pattern>/ListarProdutosEmEstoque</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

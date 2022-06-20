@@ -13,5 +13,5 @@ public class ServerConf {
     public final static String PORT = "5432";
     public final static String DATABASE = "SMD_Ecommerce";
     public final static String USER = "postgres";
-    public final static String PASS = "postgres";
+    public final static String PASS = "felipe123";
 }
