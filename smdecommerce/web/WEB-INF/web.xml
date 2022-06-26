@@ -53,6 +53,10 @@
         <servlet-class>smdecommerce.produto.controle.NovoProdutoServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ObterProdutoServlet</servlet-name>
+        <servlet-class>smdecommerce.produto.controle.ObterProdutoServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AtualizarProdutoServlet</servlet-name>
         <servlet-class>smdecommerce.produto.controle.AtualizarProdutoServlet</servlet-class>
     </servlet>
@@ -67,6 +71,26 @@
     <servlet>
         <servlet-name>ListarProdutosEmEstoqueServlet</servlet-name>
         <servlet-class>smdecommerce.produto.controle.ListarProdutosEmEstoqueServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AtualizarVendaServlet</servlet-name>
+        <servlet-class>smdecommerce.venda.controle.AtualizarVendaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExcluirVendaServlet</servlet-name>
+        <servlet-class>smdecommerce.venda.controle.ExcluirVendaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NovaVendaServlet</servlet-name>
+        <servlet-class>smdecommerce.venda.controle.NovaVendaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListarVendasServlet</servlet-name>
+        <servlet-class>smdecommerce.venda.controle.ListarVendasServlet</servlet-class>
+    </servlet>
+     <servlet>
+        <servlet-name>ListarVendasClienteServlet</servlet-name>
+        <servlet-class>smdecommerce.venda.controle.ListarVendasClienteServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NovoClienteServlet</servlet-name>
@@ -135,6 +159,30 @@
     <servlet-mapping>
         <servlet-name>ListarProdutosEmEstoqueServlet</servlet-name>
         <url-pattern>/ListarProdutosEmEstoque</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NovaVendaServlet</servlet-name>
+        <url-pattern>/NovaVenda</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListarVendasServlet</servlet-name>
+        <url-pattern>/ListarVendas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListarVendasClienteServlet</servlet-name>
+        <url-pattern>/ListarVendasCliente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExcluirVendaServlet</servlet-name>
+        <url-pattern>/ExcluirVenda</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AtualizarVendaServlet</servlet-name>
+        <url-pattern>/AtualizarVenda</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>ObterProdutoServlet</servlet-name>
+        <url-pattern>/ObterProduto</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
