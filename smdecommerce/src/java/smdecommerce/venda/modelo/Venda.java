@@ -15,6 +15,7 @@ public class Venda implements Serializable {
     private String status_pagamento;
     private Integer entrega;
     private String status_entrega;
+    private String status_pedido;
 
     public Integer getId() {
         return id;
@@ -72,5 +73,11 @@ public class Venda implements Serializable {
         this.status_entrega = status_entrega;
     }
 
-   
+   public String getStatus_pedido() {
+        return status_pedido;
+    }
+
+    public void setStatus_pedido(String status_pedido) {
+        this.status_pedido = status_pedido;
+    }
 }
