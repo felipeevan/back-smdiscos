@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.Integer.parseInt;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,11 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import smdecommerce.produto.modelo.Produto;
 import smdecommerce.produto.modelo.ProdutoDAO;
+import smdecommerce.produto_categoria.modelo.Produto_CategoriaDAO;
 
 /**
  *
  * @author nicol
  */
+
 public class NovoProdutoServlet extends HttpServlet {
 
     @Override
@@ -31,10 +34,14 @@ public class NovoProdutoServlet extends HttpServlet {
         double preco     = data.get("preco").getAsDouble();
         int quantidade   = data.get("quantidade").getAsInt();
         String foto      = data.get("foto").getAsString();
+        String categorias = data.get("categorias").getAsString();
         
         /* Processamento */
         ProdutoDAO produtoDAO = new ProdutoDAO();
-        
+        Produto_CategoriaDAO produto_categoriaDAO = new Produto_CategoriaDAO();
+        //categorias = categorias.substring(1,-2);
+        categorias = categorias.replaceAll(" ","");
+        String[] listaCategorias = categorias.split(",");
         boolean sucesso = false;
         String mensagem = null;
         Produto produto = null;
@@ -42,8 +49,11 @@ public class NovoProdutoServlet extends HttpServlet {
         try{
             produtoDAO.inserir(nome,autor,descricao,preco,quantidade,foto);
             produto = produtoDAO.obterProdutoPorNome(nome);
+            for (int i = 0; i < listaCategorias.length; i++) {
+                produto_categoriaDAO.inserir(produto.getId(),parseInt(listaCategorias[i]));
+            }
             response.setStatus(200);
-            sucesso = true;
+            sucesso = true;  
             
         } catch (Exception ex) {
             response.setStatus(400);

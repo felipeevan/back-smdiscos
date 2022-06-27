@@ -56,7 +56,6 @@ public class ProdutoDAO {
      * Método utilizado para obter um produto pelo seu identificador
      *
      * @param nome
-     * @param autor
      * @return
      * @throws Exception
      */

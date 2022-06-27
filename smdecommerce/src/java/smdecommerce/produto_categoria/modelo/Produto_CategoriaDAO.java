@@ -10,6 +10,8 @@ import smdecommerce.produto.modelo.Produto;
 import smdecommerce.produto.modelo.ProdutoDAO;
 
 import smdecommerce.ServerConf;
+import smdecommerce.categoria.modelo.Categoria;
+import smdecommerce.categoria.modelo.CategoriaDAO;
 /**
  *
  * Classe que implementa o padrão DAO para a entidade produto_categoria
@@ -30,17 +32,14 @@ public class Produto_CategoriaDAO {
         connection = DriverManager.getConnection("jdbc:postgresql://" + ServerConf.URL +":" +
                 ServerConf.PORT + "/" + ServerConf.DATABASE, ServerConf.USER, ServerConf.PASS);
         PreparedStatement preparedStatement;
-        preparedStatement = connection.prepareStatement("SELECT id_produto, id_categoria FROM produto_categoria WHERE  id_categoria = ?");
+        preparedStatement = connection.prepareStatement("SELECT id_produto FROM produto_categoria WHERE  id_categoria = ?");
         preparedStatement.setInt(1, id_categoria);
         ResultSet resultSet;
         resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
-            Produto_Categoria produto_categoria = new Produto_Categoria();
             ProdutoDAO produtoDAO = new ProdutoDAO();
             Produto produto = new Produto();
-            produto_categoria.setId_produto(resultSet.getInt("id_produto"));
-            produto_categoria.setId_categoria(resultSet.getInt("id_categoria"));
-            produto = produtoDAO.obter(resultSet.getInt("id"));
+            produto = produtoDAO.obter(resultSet.getInt("id_produto"));
             produtos.add(produto);
         }
         resultSet.close();
@@ -51,7 +50,31 @@ public class Produto_CategoriaDAO {
         }
         return produtos;
     }
-    
+    public List<Categoria> obterCategorias(int id_produto) throws Exception {
+       List<Categoria> categorias = new ArrayList<>();
+        Class.forName("org.postgresql.Driver");
+        Connection connection;
+        connection = DriverManager.getConnection("jdbc:postgresql://" + ServerConf.URL +":" +
+                ServerConf.PORT + "/" + ServerConf.DATABASE, ServerConf.USER, ServerConf.PASS);
+        PreparedStatement preparedStatement;
+        preparedStatement = connection.prepareStatement("SELECT id_categoria FROM produto_categoria WHERE  id_produto = ?");
+        preparedStatement.setInt(1, id_produto);
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            CategoriaDAO categoriaDAO = new CategoriaDAO();
+            Categoria categoria = new Categoria();
+            categoria = categoriaDAO.obter(resultSet.getInt("id_categoria"));
+            categorias.add(categoria);
+        }
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+        if (categorias.isEmpty()) {
+            throw new Exception("Não foi possível encontrar as categorias do produto");
+        }
+        return categorias;
+    }
 
     /**
      * Método utilizado para inserir um produto em uma categoria
