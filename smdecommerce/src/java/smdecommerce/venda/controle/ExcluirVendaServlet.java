@@ -8,11 +8,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
-import smdecommerce.cliente.modelo.ClienteDAO;
-import smdecommerce.usuario.modelo.Usuario;
-import smdecommerce.usuario.modelo.UsuarioDAO;
+import smdecommerce.venda.modelo.VendaDAO;
 
 
 /**
@@ -27,21 +24,17 @@ public class ExcluirVendaServlet extends HttpServlet {
             throws ServletException, IOException {
         JsonObject data = new Gson().fromJson(request.getReader(), JsonObject.class);
         /* entrada */
-        HttpSession session = request.getSession(false);
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-       
+        int id = data.get("id").getAsInt();
+        
         /* processamento */
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
-        ClienteDAO clienteDAO = new ClienteDAO();
+        VendaDAO vendaDAO = new VendaDAO();
         boolean sucesso = false;
         String mensagem = null;
   
         try {
-            clienteDAO.excluir(usuario.getId());
-            usuarioDAO.excluir(usuario.getId());
+            vendaDAO.excluir(id);
             sucesso = true;
-            mensagem = "Usuário excluído com sucesso";
-            session.invalidate();
+            mensagem = "Venda excluída com sucesso";
             response.setStatus(200);
         } catch (Exception ex) {
             response.setStatus(400);
@@ -52,8 +45,7 @@ public class ExcluirVendaServlet extends HttpServlet {
             JSONObject myResponse = new JSONObject();
             Gson gson = new Gson();
             myResponse.put("sucesso", sucesso);
-            myResponse.put("data", gson.toJson(usuario));
-            myResponse.put("mensagem", sucesso ? "Usuário excluído com sucesso" : mensagem);
+            myResponse.put("mensagem", sucesso ? "Venda excluída com sucesso" : mensagem);
             out.print(myResponse);
             out.flush();
         }

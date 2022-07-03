@@ -101,9 +101,9 @@ public class VendaDAO {
         resultSet.close();
         preparedStatement.close();
         connection.close();
-        if (vendas.isEmpty()) {
-            throw new Exception("Não foi possível encontrar vendas para o usuário");
-        }
+        //if (vendas.isEmpty()) {
+          //  throw new Exception("Não foi possível encontrar vendas para o usuário");
+       // }
         return vendas;
     }
 
@@ -114,7 +114,7 @@ public class VendaDAO {
         connection = DriverManager.getConnection("jdbc:postgresql://" + ServerConf.URL +":" +
                 ServerConf.PORT + "/" + ServerConf.DATABASE, ServerConf.USER, ServerConf.PASS);
         PreparedStatement preparedStatement;
-        preparedStatement = connection.prepareStatement("SELECT * FROM venda");
+        preparedStatement = connection.prepareStatement("SELECT id, data_hora, id_usuario, pagamento, status_pag, entrega, status_ent, status_pedido FROM venda");
         ResultSet resultSet;
         resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
@@ -133,7 +133,7 @@ public class VendaDAO {
         preparedStatement.close();
         connection.close();
         if (vendas.isEmpty()) {
-            throw new Exception("Não foi possível encontrar vendas para o usuário");
+            throw new Exception("Não foi possível encontrar vendas");
         }
         return vendas;
     }
@@ -174,7 +174,6 @@ public class VendaDAO {
      * Método utilizado para atualizar uma  venda
      * 
      * @param id
-     * @param id_usuario
      * @param pagamento
      * @param status_pag
      * @param entrega
@@ -182,20 +181,19 @@ public class VendaDAO {
      * @param status_pedido
      * @throws Exception
      */
-    public void atualizar(Integer id, Integer id_usuario, Integer pagamento, String status_pag, Integer entrega,String status_ent, String status_pedido) throws Exception {
+    public void atualizar(Integer id, Integer pagamento, String status_pag, Integer entrega,String status_ent, String status_pedido) throws Exception {
         Class.forName("org.postgresql.Driver");
         Connection connection;
         connection = DriverManager.getConnection("jdbc:postgresql://" + ServerConf.URL +":" +
                 ServerConf.PORT + "/" + ServerConf.DATABASE, ServerConf.USER, ServerConf.PASS);     
         PreparedStatement preparedStatement;
-        preparedStatement = connection.prepareStatement("UPDATE venda SET data_hora=NOW(), id_usuario=?, pagamento=?, status_pag=?, entrega=?, status_ent=?, status_pedido=? WHERE id = ?");
-        preparedStatement.setInt(1, id_usuario);
-        preparedStatement.setInt(2, pagamento);
-        preparedStatement.setString(3, status_pag);
-        preparedStatement.setInt(4, entrega);
-        preparedStatement.setString(5, status_ent);
-        preparedStatement.setString(6, status_pedido);
-        preparedStatement.setInt(7, id);
+        preparedStatement = connection.prepareStatement("UPDATE venda SET data_hora=NOW(), pagamento=?, status_pag=?, entrega=?, status_ent=?, status_pedido=? WHERE id = ?");
+        preparedStatement.setInt(1, pagamento);
+        preparedStatement.setString(2, status_pag);
+        preparedStatement.setInt(3, entrega);
+        preparedStatement.setString(4, status_ent);
+        preparedStatement.setString(5, status_pedido);
+        preparedStatement.setInt(6, id);
         int resultado = preparedStatement.executeUpdate();
         preparedStatement.close();
         connection.close();

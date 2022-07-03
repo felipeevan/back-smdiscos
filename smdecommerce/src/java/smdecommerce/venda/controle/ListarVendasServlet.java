@@ -47,7 +47,7 @@ public class ListarVendasServlet extends HttpServlet {
             Gson gson = new Gson();
             myResponse.put("sucesso", sucesso);
             myResponse.put("data", gson.toJson(vendas));
-            //myResponse.put("mensagem", sucesso ? "Produto listado  com sucesso" : mensagem);
+            //myResponse.put("mensagem", sucesso ? "Vendas listadas  com sucesso" : mensagem);
             out.print(myResponse);
             out.flush();
         }

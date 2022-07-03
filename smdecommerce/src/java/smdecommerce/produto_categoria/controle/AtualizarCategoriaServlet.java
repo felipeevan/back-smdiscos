@@ -17,7 +17,7 @@ import smdecommerce.produto.modelo.ProdutoDAO;
  *
  * @author nicol
  */
-@WebServlet(name = "AtualizarProdutoServlet", urlPatterns = {"/AtualizarProduto"})
+
 public class AtualizarCategoriaServlet extends HttpServlet {
 
     @Override

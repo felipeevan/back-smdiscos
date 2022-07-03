@@ -55,10 +55,11 @@ public class ObterProdutoServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             JSONObject myResponse = new JSONObject();
             Gson gson = new Gson();
+            JsonObject dataReturn = new Gson().fromJson(gson.toJson(produto), JsonObject.class);
+            dataReturn.addProperty("categorias", gson.toJson(categorias));
             myResponse.put("sucesso", sucesso);
-            myResponse.put("data", gson.toJson(produto));
-             myResponse.put("data", gson.toJson(categorias));
-            //myResponse.put("mensagem", sucesso ? "Produto cadastrado com sucesso" : mensagem);
+            myResponse.put("data", gson.toJson(dataReturn));
+            myResponse.put("mensagem", sucesso ? "Produto encontrado com sucesso" : mensagem);
             out.print(myResponse);
             out.flush();
         }

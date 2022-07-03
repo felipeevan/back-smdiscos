@@ -5,15 +5,11 @@ import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
-import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.http.HttpSession;
-import smdecommerce.usuario.modelo.Usuario;
 import smdecommerce.venda.modelo.Venda;
 import smdecommerce.venda.modelo.VendaDAO;
 
@@ -26,8 +22,11 @@ public class ListarVendasClienteServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        JsonObject data = new Gson().fromJson(request.getReader(), JsonObject.class);
+        
+        /* Entrada */
+        int id = data.get("id").getAsInt();
+        
         /* Processamento */
         VendaDAO vendaDAO = new VendaDAO();
         List<Venda> vendas = null;
@@ -36,7 +35,7 @@ public class ListarVendasClienteServlet extends HttpServlet {
         String mensagem     = null;
         
         try{
-            vendas = vendaDAO.obterVendascliente(usuario.getId());
+            vendas = vendaDAO.obterVendascliente(id);
             response.setStatus(200);
             sucesso = true;
         } catch (Exception ex) {

@@ -55,10 +55,11 @@ public class NovaVendaServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             JSONObject myResponse = new JSONObject();
             Gson gson = new Gson();
+            JsonObject dataReturn = new Gson().fromJson(gson.toJson(venda), JsonObject.class);
+            dataReturn.addProperty("usuario", gson.toJson(usuario));
             myResponse.put("sucesso", sucesso);
-            myResponse.put("data1", gson.toJson(usuario));
-            myResponse.put("data2", gson.toJson(venda));
-            myResponse.put("mensagem", sucesso ? "Venda criada com sucesso" : mensagem);
+            myResponse.put("data", gson.toJson(dataReturn));
+            myResponse.put("mensagem", sucesso ? "Produto encontrado com sucesso" : mensagem);
             out.print(myResponse);
             out.flush();
         }

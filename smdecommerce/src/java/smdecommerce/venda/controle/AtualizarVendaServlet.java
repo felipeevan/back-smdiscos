@@ -8,17 +8,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
-import smdecommerce.cliente.modelo.ClienteDAO;
-import smdecommerce.usuario.modelo.Usuario;
-import smdecommerce.usuario.modelo.UsuarioDAO;
+import smdecommerce.venda.modelo.Venda;
+import smdecommerce.venda.modelo.VendaDAO;
+
 
 
 /**
  *
  * 
- * Classe que implementa a ação de editar um usuário do tipo administrador existente
+ * Classe que implementa a ação de editar uma venda existente
  */
 public class AtualizarVendaServlet extends HttpServlet {
 
@@ -26,31 +25,27 @@ public class AtualizarVendaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         JsonObject data = new Gson().fromJson(request.getReader(), JsonObject.class);
-        /* entrada */
-        HttpSession session = request.getSession(false);
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-        String nome = data.get("nome").getAsString();
-        String email = data.get("email").getAsString();
-        String login = data.get("login").getAsString();
-        String senha = data.get("senha").getAsString();
-        String endereco = data.get("endereco").getAsString();
+        
+        /* Entrada */
+        int id = data.get("id").getAsInt();
+        int pagamento = data.get("pagamento").getAsInt();
+        String status_pag = data.get("status_pag").getAsString();
+        int entrega = data.get("entrega").getAsInt();
+        String status_ent = data.get("status_ent").getAsString();
+        String status_pedido = data.get("status_pedido").getAsString();
+        
         /* processamento */
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
-        ClienteDAO clienteDAO = new ClienteDAO();
+        VendaDAO vendaDAO = new VendaDAO();
+        Venda venda = new Venda();
         boolean sucesso = false;
         String mensagem = null;
   
         try {
-            if(usuario != null) {
-            usuarioDAO.atualizar(usuario.getId(), nome, email, login, senha);
-            clienteDAO.atualizarEndereco(usuario.getId(), endereco);
+            vendaDAO.atualizar(id, pagamento, status_pag, entrega, status_ent, status_pedido);
+            venda = vendaDAO.obter(id);
             sucesso = true;
-            session.removeAttribute("usuario");
-            usuario = usuarioDAO.obter(usuario.getId());
-            session.setAttribute("usuario", usuario);
-            mensagem = "Usuário atualizado com sucesso";
+            mensagem = "Venda atualizada com sucesso";
             response.setStatus(200);
-            }
         } catch (Exception ex) {
             response.setStatus(400);
             sucesso = false;
@@ -60,8 +55,8 @@ public class AtualizarVendaServlet extends HttpServlet {
             JSONObject myResponse = new JSONObject();
             Gson gson = new Gson();
             myResponse.put("sucesso", sucesso);
-            myResponse.put("data", gson.toJson(usuario));
-            myResponse.put("mensagem", sucesso ? "Usuário atualizado com sucesso" : mensagem);
+            myResponse.put("data", gson.toJson(venda));
+            myResponse.put("mensagem", sucesso ? "Venda atualizada com sucesso" : mensagem);
             out.print(myResponse);
             out.flush();
         }

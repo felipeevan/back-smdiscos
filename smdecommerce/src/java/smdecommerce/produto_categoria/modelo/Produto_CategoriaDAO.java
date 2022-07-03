@@ -70,9 +70,6 @@ public class Produto_CategoriaDAO {
         resultSet.close();
         preparedStatement.close();
         connection.close();
-        if (categorias.isEmpty()) {
-            throw new Exception("Não foi possível encontrar as categorias do produto");
-        }
         return categorias;
     }
 
