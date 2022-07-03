@@ -8,7 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import smdecommerce.categoria.modelo.Categoria;
 import smdecommerce.categoria.modelo.CategoriaDAO;

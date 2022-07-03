@@ -45,11 +45,38 @@ public class Produto_CategoriaDAO {
         resultSet.close();
         preparedStatement.close();
         connection.close();
-        if (produtos.isEmpty()) {
-            throw new Exception("Não foi possível encontrar os produto da categoria");
-        }
+        //if (produtos.isEmpty()) {
+           // throw new Exception("Não foi possível encontrar os produto da categoria");
+     //   }
         return produtos;
     }
+    
+    public List<Produto> obterProdutosEmEstoque(int id_categoria) throws Exception {
+       List<Produto> produtos = new ArrayList<>();
+        Class.forName("org.postgresql.Driver");
+        Connection connection;
+        connection = DriverManager.getConnection("jdbc:postgresql://" + ServerConf.URL +":" +
+                ServerConf.PORT + "/" + ServerConf.DATABASE, ServerConf.USER, ServerConf.PASS);
+        PreparedStatement preparedStatement;
+        preparedStatement = connection.prepareStatement("SELECT produto.id FROM produto_categoria JOIN produto ON produto.id = produto_categoria.id_produto WHERE quantidade > 0 AND id_categoria = ?");
+        preparedStatement.setInt(1, id_categoria);
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            ProdutoDAO produtoDAO = new ProdutoDAO();
+            Produto produto = new Produto();
+            produto = produtoDAO.obter(resultSet.getInt("id"));
+            produtos.add(produto);
+        }
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+        //if (produtos.isEmpty()) {
+           // throw new Exception("Não foi possível encontrar os produto da categoria");
+     //   }
+        return produtos;
+    }
+  
     public List<Categoria> obterCategorias(int id_produto) throws Exception {
        List<Categoria> categorias = new ArrayList<>();
         Class.forName("org.postgresql.Driver");
@@ -59,6 +86,28 @@ public class Produto_CategoriaDAO {
         PreparedStatement preparedStatement;
         preparedStatement = connection.prepareStatement("SELECT id_categoria FROM produto_categoria WHERE  id_produto = ?");
         preparedStatement.setInt(1, id_produto);
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            CategoriaDAO categoriaDAO = new CategoriaDAO();
+            Categoria categoria = new Categoria();
+            categoria = categoriaDAO.obter(resultSet.getInt("id_categoria"));
+            categorias.add(categoria);
+        }
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+        return categorias;
+    }
+    
+    public List<Categoria> obterTodasCategorias() throws Exception {
+       List<Categoria> categorias = new ArrayList<>();
+        Class.forName("org.postgresql.Driver");
+        Connection connection;
+        connection = DriverManager.getConnection("jdbc:postgresql://" + ServerConf.URL +":" +
+                ServerConf.PORT + "/" + ServerConf.DATABASE, ServerConf.USER, ServerConf.PASS);
+        PreparedStatement preparedStatement;
+        preparedStatement = connection.prepareStatement("SELECT id_categoria FROM produto_categoria");
         ResultSet resultSet;
         resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
