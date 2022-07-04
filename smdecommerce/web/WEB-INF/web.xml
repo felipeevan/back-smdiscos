@@ -93,7 +93,7 @@
         <servlet-class>smdecommerce.venda.controle.ListarVendasClienteServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AtualizarCategoriaServlet</servlet-name>
+        <servlet-name>AtualizarProdutoCategoriaServlet</servlet-name>
         <servlet-class>smdecommerce.produto_categoria.controle.AtualizarCategoriaServlet</servlet-class>
     </servlet>
     <servlet>
@@ -206,8 +206,8 @@
         <url-pattern>/ObterProduto</url-pattern>
     </servlet-mapping>
      <servlet-mapping>
-        <servlet-name>AtualizarCategoriaServlet</servlet-name>
-        <url-pattern>/AtualizarCategoria</url-pattern>
+        <servlet-name>tualizarProdutoCategoriaServlet</servlet-name>
+        <url-pattern>/AtualizarProdutoCategoria</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ExcluirProdutoCategoriaServlet</servlet-name>
