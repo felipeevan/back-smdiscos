@@ -24,7 +24,7 @@
         <servlet-name>ExcluirAdmServlet</servlet-name>
         <servlet-class>smdecommerce.administrador.controle.ExcluirAdmServlet</servlet-class>
     </servlet>
-     <servlet>
+    <servlet>
         <servlet-name>AtualizarClienteServlet</servlet-name>
         <servlet-class>smdecommerce.cliente.controle.AtualizarClienteServlet</servlet-class>
     </servlet>
@@ -88,7 +88,7 @@
         <servlet-name>ListarVendasServlet</servlet-name>
         <servlet-class>smdecommerce.venda.controle.ListarVendasServlet</servlet-class>
     </servlet>
-     <servlet>
+    <servlet>
         <servlet-name>ListarVendasClienteServlet</servlet-name>
         <servlet-class>smdecommerce.venda.controle.ListarVendasClienteServlet</servlet-class>
     </servlet>
@@ -112,7 +112,22 @@
         <servlet-name>ListarProdutosdaCategoriaServlet</servlet-name>
         <servlet-class>smdecommerce.produto_categoria.controle.ListarProdutosdaCategoriaServlet</servlet-class>
     </servlet>
-
+    <servlet>
+        <servlet-name>ListarProdutosdaVendaServlet</servlet-name>
+        <servlet-class>smdecommerce.venda_produto.controle.ListarProdutosdaVendaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListarVendasdoProdutoServlet</servlet-name>
+        <servlet-class>smdecommerce.venda_produto.controle.ListarVendasdoProdutoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExcluirProdutodaVendaServlet</servlet-name>
+        <servlet-class>smdecommerce.venda_produto.controle.ExcluirProdutodaVendaServlett</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ObterVendaServlet</servlet-name>
+        <servlet-class>smdecommerce.venda.controle.ObterVendaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>NovoClienteServlet</servlet-name>
         <url-pattern>/NovoCliente</url-pattern>
@@ -201,11 +216,11 @@
         <servlet-name>AtualizarVendaServlet</servlet-name>
         <url-pattern>/AtualizarVenda</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ObterProdutoServlet</servlet-name>
         <url-pattern>/ObterProduto</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>tualizarProdutoCategoriaServlet</servlet-name>
         <url-pattern>/AtualizarProdutoCategoria</url-pattern>
     </servlet-mapping>
@@ -224,6 +239,22 @@
     <servlet-mapping>
         <servlet-name>ListarProdutosdaCategoriaServlet</servlet-name>
         <url-pattern>/ListarProdutosdaCategoria</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListarProdutosdaVendaServlet</servlet-name>
+        <url-pattern>/ListarProdutosdaVenda</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListarVendasdoProdutoServlet</servlet-name>
+        <url-pattern>/ListarVendasdoProduto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExcluirProdutodaVendaServlet</servlet-name>
+        <url-pattern>/ExcluirProdutodaVenda</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ObterVendaServlet</servlet-name>
+        <url-pattern>/ObterVenda</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
