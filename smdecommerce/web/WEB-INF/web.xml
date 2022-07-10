@@ -94,7 +94,7 @@
     </servlet>
     <servlet>
         <servlet-name>AtualizarProdutoCategoriaServlet</servlet-name>
-        <servlet-class>smdecommerce.produto_categoria.controle.AtualizarCategoriaServlet</servlet-class>
+        <servlet-class>smdecommerce.produto_categoria.controle.AtualizarProdutoCategoriaServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ExcluirProdutoCategoriaServlet</servlet-name>
@@ -221,7 +221,7 @@
         <url-pattern>/ObterProduto</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>tualizarProdutoCategoriaServlet</servlet-name>
+        <servlet-name>AtualizarProdutoCategoriaServlet</servlet-name>
         <url-pattern>/AtualizarProdutoCategoria</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
