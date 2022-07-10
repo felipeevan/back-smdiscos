@@ -63,10 +63,10 @@ public class AtualizarVendaServlet extends HttpServlet {
             vendaDAO.atualizar(usuario.getId(), pagamento, status_pag, entrega, status_ent, status_pedido);
             venda_produtoDAO.excluirProdutos(id);
             for (int i = 0; i < listaProdutos.length; i++) {
-                venda_produtoDAO.inserir(venda.getId(),parseInt(listaProdutos[i]), parseInt(listaQuantidades[i]));
+                venda_produtoDAO.inserir(id ,parseInt(listaProdutos[i]), parseInt(listaQuantidades[i]));
             }
-            produtosQuantidade = venda_produtoDAO.obterVendaProduto(venda.getId());
-            produtosDavenda = venda_produtoDAO.obterProdutos(venda.getId());
+            produtosQuantidade = venda_produtoDAO.obterVendaProduto(id);
+            produtosDavenda = venda_produtoDAO.obterProdutos(id);
            
             sucesso = true;
             mensagem = "Venda inserida com sucesso";

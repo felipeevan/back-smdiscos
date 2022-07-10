@@ -4,18 +4,15 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.Integer.parseInt;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
-import smdecommerce.categoria.modelo.Categoria;
 import smdecommerce.produto.modelo.Produto;
 import smdecommerce.produto.modelo.ProdutoDAO;
-import smdecommerce.produto_categoria.modelo.Produto_CategoriaDAO;
 import smdecommerce.venda.modelo.Venda;
 import smdecommerce.venda.modelo.VendaDAO;
 import smdecommerce.venda_produto.modelo.Venda_Produto;
@@ -44,18 +41,15 @@ public class ObterVendaServlet extends HttpServlet {
         String mensagem = null;
         Venda venda = null;
         List<Venda_Produto> venda_produto = null;
-        List<Venda_Produto> quantidade = null;
+        List quantidades = new ArrayList(); 
         List<Produto> produtos = null;
         
         try{
             venda = vendaDAO.obter(id);
             venda_produto = venda_produtoDAO.obterVendas(id);
             for (Venda_Produto obj:venda_produto) {
-                
-                //Venda_Produto obj = (Venda_Produto) venda_produto.get(i);
-                quantidade.add(obj.getQuantidade());
+                quantidades.add(obj.getQuantidade());
             }
-            
             response.setStatus(200);
             sucesso = true;
             
@@ -71,7 +65,7 @@ public class ObterVendaServlet extends HttpServlet {
             Gson gson = new Gson();
             JsonObject dataReturn = new Gson().fromJson(gson.toJson(venda), JsonObject.class);
             dataReturn.addProperty("categorias", gson.toJson(produtos));
-            dataReturn.addProperty("quantidades", gson.toJson(produtos));
+            dataReturn.addProperty("quantidades", gson.toJson(quantidades));
             myResponse.put("sucesso", sucesso);
             myResponse.put("data", gson.toJson(dataReturn));
             myResponse.put("mensagem", sucesso ? "Venda encontrado com sucesso" : mensagem);
