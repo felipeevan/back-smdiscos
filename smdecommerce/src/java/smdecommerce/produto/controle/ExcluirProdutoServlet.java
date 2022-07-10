@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import smdecommerce.produto.modelo.Produto;
 import smdecommerce.produto.modelo.ProdutoDAO;
+import smdecommerce.produto_categoria.modelo.Produto_CategoriaDAO;
 
 /**
  *
@@ -29,6 +30,7 @@ public class ExcluirProdutoServlet extends HttpServlet {
         
         /* Processamento */
         ProdutoDAO produtoDAO = new ProdutoDAO();
+        Produto_CategoriaDAO produto_categoriaDAO = new Produto_CategoriaDAO();
         
         boolean sucesso     = false;
         String mensagem     = null;
@@ -36,6 +38,7 @@ public class ExcluirProdutoServlet extends HttpServlet {
         
         try{
             produtoDAO.excluir(id);
+            produto_categoriaDAO.excluirProduto(id);
             response.setStatus(200);
             sucesso = true;
             

@@ -1,4 +1,4 @@
-package smdecommerce.venda.controle;
+package smdecommerce.venda_produto.controle;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -9,52 +9,53 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
-import smdecommerce.venda.modelo.VendaDAO;
+import java.util.List;
+import smdecommerce.venda_produto.modelo.Venda_Produto;
 import smdecommerce.venda_produto.modelo.Venda_ProdutoDAO;
-
 
 /**
  *
- * 
- * Classe que implementa a ação de editar um usuário do tipo administrador existente
+ * @author nicol 
+ * @author priscila
  */
-public class ExcluirVendaServlet extends HttpServlet {
+public class ListarVendasdoProdutoServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         JsonObject data = new Gson().fromJson(request.getReader(), JsonObject.class);
-        /* entrada */
-        int id = data.get("id").getAsInt();
         
-        /* processamento */
-        VendaDAO vendaDAO = new VendaDAO();
+        /* Entrada */
+        int id_produto = data.get("id_produto").getAsInt();
+        
+        /* Processamento */
         Venda_ProdutoDAO venda_produtoDAO = new Venda_ProdutoDAO();
-        boolean sucesso = false;
-        String mensagem = null;
-  
-        try {
-            
-            vendaDAO.excluir(id);
-            venda_produtoDAO.excluirProdutos(id);
-            sucesso = true;
-            mensagem = "Venda excluída com sucesso";
+        List<Venda_Produto> vendas = null;
+        
+        boolean sucesso     = false;
+        String mensagem     = null;
+        
+        try{
+            vendas = venda_produtoDAO.obterVendas(id_produto);
             response.setStatus(200);
+            sucesso = true;
         } catch (Exception ex) {
             response.setStatus(400);
             sucesso = false;
-            mensagem = ex.getMessage(); 
+            mensagem = ex.getMessage();
         }
+        
+        /* Saída */
         try (PrintWriter out = response.getWriter()) {
             JSONObject myResponse = new JSONObject();
             Gson gson = new Gson();
             myResponse.put("sucesso", sucesso);
-            myResponse.put("mensagem", sucesso ? "Venda excluída com sucesso" : mensagem);
+            myResponse.put("data", gson.toJson(vendas));
+            //myResponse.put("mensagem", sucesso ? "Produto listado  com sucesso" : mensagem);
             out.print(myResponse);
             out.flush();
         }
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
     }
-
 }

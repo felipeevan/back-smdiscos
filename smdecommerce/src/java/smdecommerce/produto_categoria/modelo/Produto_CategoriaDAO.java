@@ -196,4 +196,26 @@ public class Produto_CategoriaDAO {
             throw new Exception("Não foi possível excluir o produto da categoria");
         }
     }
+    
+    /**
+     * Método utilizado para excluir um  produto de todas as categorias
+     * 
+     * @param id_produto
+     * @throws Exception
+     */
+    public void excluirProduto(Integer id_produto) throws Exception {
+        Class.forName("org.postgresql.Driver");
+        Connection connection;
+        connection = DriverManager.getConnection("jdbc:postgresql://" + ServerConf.URL +":" +
+                ServerConf.PORT + "/" + ServerConf.DATABASE, ServerConf.USER, ServerConf.PASS);     
+        PreparedStatement preparedStatement;
+        preparedStatement = connection.prepareStatement("DELETE FROM produto_categoria WHERE id_produto = ?");
+        preparedStatement.setInt(1, id_produto);
+        int resultado = preparedStatement.executeUpdate();
+        preparedStatement.close();
+        connection.close();
+        if (resultado != 1) {
+            throw new Exception("Não foi possível excluir o produto das categorias");
+        }
+    }
 }

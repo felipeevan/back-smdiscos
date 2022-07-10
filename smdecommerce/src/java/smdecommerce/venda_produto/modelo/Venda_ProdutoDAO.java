@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import smdecommerce.ServerConf;
+import smdecommerce.produto.modelo.Produto;
+import smdecommerce.produto.modelo.ProdutoDAO;
 
 
 /**
@@ -16,14 +18,14 @@ import smdecommerce.ServerConf;
 public class Venda_ProdutoDAO {
 
     /**
-     * Método utilizado para obter os produtos de uma venda
+     * Método utilizado para obter os id do produtos de uma venda e suas quantidades
      *
      * @param id_venda
      * @return
      * @throws Exception
      */
-    public List<Venda_Produto> obterProdutos(int id_venda) throws Exception {
-       List<Venda_Produto> produtos = new ArrayList<>();
+    public List<Venda_Produto> obterVendaProduto(int id_venda) throws Exception {
+        List<Venda_Produto> produtos = new ArrayList<>();
         Class.forName("org.postgresql.Driver");
         Connection connection;
         connection = DriverManager.getConnection("jdbc:postgresql://" + ServerConf.URL +":" +
@@ -43,11 +45,46 @@ public class Venda_ProdutoDAO {
         resultSet.close();
         preparedStatement.close();
         connection.close();
-        if (produtos.isEmpty()) {
-            throw new Exception("Não foi possível encontrar os produto da venda");
-        }
+        //if (produtos.isEmpty()) {
+           // throw new Exception("Não foi possível encontrar os produto da venda");
+     //   }
         return produtos;
     }
+    
+    /**
+     * Método utilizado para obter os produtos de uma venda
+     *
+     * @param id_venda
+     * @return
+     * @throws Exception
+     */
+    
+    public List<Produto> obterProdutos(int id_venda) throws Exception {
+        List<Produto> produtos = new ArrayList<>();
+        Class.forName("org.postgresql.Driver");
+        Connection connection;
+        connection = DriverManager.getConnection("jdbc:postgresql://" + ServerConf.URL +":" +
+                ServerConf.PORT + "/" + ServerConf.DATABASE, ServerConf.USER, ServerConf.PASS);     
+        PreparedStatement preparedStatement;
+        preparedStatement = connection.prepareStatement("SELECT id_venda, id_produto, quantidade FROM venda_produto WHERE id_venda = ?");
+        preparedStatement.setInt(1, id_venda);
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            ProdutoDAO produtoDAO = new ProdutoDAO();
+            Produto produto = new Produto();
+            produto = produtoDAO.obter(resultSet.getInt("id_produto"));
+            produtos.add(produto);
+        }
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+        //if (produtos.isEmpty()) {
+           // throw new Exception("Não foi possível encontrar os produto da venda");
+     //   }
+        return produtos;
+    }
+
     
     /**
      * Método utilizado para obter os produtos de uma venda
@@ -78,11 +115,12 @@ public class Venda_ProdutoDAO {
         resultSet.close();
         preparedStatement.close();
         connection.close();
-        if (vendas.isEmpty()) {
-            throw new Exception("Não foi possível encontrar as vendas do produto");
-        }
+        //if (vendas.isEmpty()) {
+            //throw new Exception("Não foi possível encontrar as vendas do produto");
+       // }
         return vendas;
     }
+    
     /**
      * Método utilizado para inserir um produto em uma venda
      *
@@ -157,6 +195,22 @@ public class Venda_ProdutoDAO {
         connection.close();
         if (resultado != 1) {
             throw new Exception("Não foi possível excluir o produto da venda");
+        }
+    }
+    
+    public void excluirProdutos(Integer id_venda) throws Exception {
+        Class.forName("org.postgresql.Driver");
+        Connection connection;
+        connection = DriverManager.getConnection("jdbc:postgresql://" + ServerConf.URL +":" +
+                ServerConf.PORT + "/" + ServerConf.DATABASE, ServerConf.USER, ServerConf.PASS);     
+        PreparedStatement preparedStatement;
+        preparedStatement = connection.prepareStatement("DELETE FROM venda_produto WHERE id_venda = ?");
+        preparedStatement.setInt(1, id_venda);
+        int resultado = preparedStatement.executeUpdate();
+        preparedStatement.close();
+        connection.close();
+        if (resultado != 1) {
+            throw new Exception("Não foi possível excluir os produtos da venda");
         }
     }
 }
