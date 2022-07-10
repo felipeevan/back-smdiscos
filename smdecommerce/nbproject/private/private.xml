@@ -5,8 +5,6 @@
         <group>
             <file>file:/C:/Users/vitor/Documents/Programação%20para%20Web%20I/Projeto/back-smdiscos-master/smdecommerce/src/java/smdecommerce/venda/controle/NovaVendaServlet.java</file>
             <file>file:/C:/Users/vitor/Documents/Programação%20para%20Web%20I/Projeto/back-smdiscos-master/smdecommerce/src/java/smdecommerce/venda/modelo/VendaDAO.java</file>
-            <file>file:/C:/Users/vitor/Documents/Programação%20para%20Web%20I/Projeto/back-smdiscos-master/smdecommerce/src/java/smdecommerce/venda_produto/controle/ListarVendasdoProdutoServlet.java</file>
-            <file>file:/C:/Users/vitor/Documents/Programação%20para%20Web%20I/Projeto/back-smdiscos-master/smdecommerce/src/java/smdecommerce/venda/controle/ObterVendaServlet.java</file>
             <file>file:/C:/Users/vitor/Documents/Programação%20para%20Web%20I/Projeto/back-smdiscos-master/smdecommerce/src/java/smdecommerce/venda_produto/modelo/Venda_ProdutoDAO.java</file>
             <file>file:/C:/Users/vitor/Documents/Programação%20para%20Web%20I/Projeto/back-smdiscos-master/smdecommerce/src/java/smdecommerce/venda_produto/modelo/Venda_Produto.java</file>
         </group>
